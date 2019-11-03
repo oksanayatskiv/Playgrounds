@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head th:replace="fragments :: head"></head>
+<body>
+    <div class="container">
+        <nav th:replace="fragments :: nav-bar"></nav>
+
+        <div class="card" th:if="${playground}">
+            <!-- Header -->
+            <div class="card-header text-center">
+                <input id="playgroundName" th:value="${playground.name}" type="hidden"/>
+                <h1 class="card-title" th:text="${playground.name}">Playground Name</h1>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${playground.address}">Address</h6>
+                <div class="rw-ui-container"></div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')" class="row no-gutter">
+                <div class="col text-center">
+                    <a th:href="@{/edit/{id}(id=${playground.id})}">Edit</a>
+                </div>
+            </div>
+            <!--Main Body-->
+            <div class="card-body">
+
+                <!--Row 1 | Info and Images -->
+                <div class="row">
+                    <!--Column 1 | Info Tables -->
+                    <div class="col-3">
+                        <!--Equipments -->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" colspan="2">Equipment</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Climbing Wall</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.climbingWalls}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.climbingWalls}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ladders</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.ladders}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.ladders}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seesaw</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.seesaw}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.seesaw}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Slides</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.slides}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.slides}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Structures</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.structures}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.structures}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Swing</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.equipment.swings}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.equipment.swings}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Amenities-->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" colspan="2">Amenities</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Water Fountain</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.amenities.waterFountain}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.amenities.waterFountain}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Restroom Changing Station</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.amenities.restroomChangingStation}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.amenities.restroomChangingStation}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Accessibilites-->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" colspan="2">Accessibilities</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Parking Lot</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.accessibility.parkingLot}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.accessibility.parkingLot}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Trail</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.accessibility.trail}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.accessibility.trail}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Shelters-->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" colspan="2">Shelters</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Benches</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.shelters.benches}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.shelters.benches}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Pavilion</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.shelters.pavillion}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.shelters.pavillion}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Special Needs-->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col" colspan="2">Special Needs</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Sensory</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.specialNeeds.sensory}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.specialNeeds.sensory}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Wheelchair Accessible</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.specialNeeds.wheelchairAccessible}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.specialNeeds.wheelchairAccessible}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Other-->
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark text-center">
+                            <tr>
+                                <th colspan="2" scope="col">Other</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Water Features</th>
+                                <td class="text-right">
+                                    <span th:if="${playground.waterFeature}">
+                                        <i class="material-icons" style="font-size:1rem; color:green">check_circle</i>
+                                    </span>
+                                    <span th:unless="${playground.waterFeature}">
+                                        <i class="material-icons" style="font-size:1rem; color:red">cancel</i>
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Column 2 | Carousel & Description-->
+                    <div class="col-9" >
+                        <div class="row">
+                            <div class="col">
+                                <!--Carousel-->
+                                <div id="carouselPlayground" class="carousel slide container" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img class="d-block w-100" src="https://placeimg.com/800/400/arch" alt="First"/>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5>Caption Title Test 1</h5>
+                                                    <p>Testing Caption</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselPlaground" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselPlayground" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--Description-->
+                            <div class="col">
+                                <div class="px-3 py-3">
+                                    <h5 class="card-title">Playground Description</h5>
+                                    <p class="card-subtitle text-muted" th:text="${playground.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Row 2 | Map -->
+                <div class="row">
+                    <div class="col">
+                            <div id="map"></div>
+                        <script async="async" defer="defer"
+                                src="https://maps.googleapis.com/maps/api/js?key=Your_Key&amp;callback=loadMap"></script>
+                    </div>
+                </div>
+                <!--Row 3 | Disqus Comments-->
+                <div class="row">
+                    <div class="col">
+                        <!--Disqus Container-->
+                        <div id="disqus_thread"></div>
+                        <!--Disqus Script-->
+                        <script type="text/javascript" th:src="@{/js/disqus.js}"></script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    </div>
+                </div>
+                <!--Row 5 | Likes Comments-->
+                <div class="row">
+                    <div class="card-body">
+                        <div id="likes"></div>
+                        <!--Likes Script-->
+                        <script type="text/javascript" th:src="@{/js/likes.js}"></script>
+                        <noscript>Please enable JavaScript to view the <a href = "https://rating-widget.com/get/rating/#_=_">comments powered by Ratingwidget.</a></noscript>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

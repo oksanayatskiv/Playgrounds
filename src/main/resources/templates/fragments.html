@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:fragment="head">
+
+    <meta charset="UTF-8" />
+    <title th:text="${title}">Title</title>
+
+    <!-- General CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- BootstrapCND | CSS, jQuery, and JavaScript | Template used: bootswatch.com/Journal -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css"
+          integrity="sha384-ciphE0NCAlD2/N6NUApXAN2dAs/vcSAOTzyE202jJx3oS8n4tAQezRgnlHqcJ59C"
+          crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+            crossorigin="anonymous"></script>
+
+    <!--Google Maps API Geocoding & Javascripst -->
+    <script th:src="@{/js/renderMap.js}" type="text/javascript"></script>
+    <script th:src="@{/js/googleMapSearch.js}" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar-->
+    <nav th:fragment="nav-bar" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a th:href="@{/}" class="navbar-brand">St. Louis Playground Finder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Items-->
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a th:href="@{/search}" class="nav-link">Advanced Search</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/list}" class="nav-link">Browse Playgrounds</a>
+                </li>
+            </ul>
+            <!-- Navbar Search form-->
+            <form class="form-inline my-2 my-lg-0 mr-2" th:object="${searchForm}" th:action="@{/results}" >
+                <input class="form-control mr-sm-2" type="text" placeholder="Enter Search Term..." th:field="*{name}" />
+                <button class="btn btn-secondary my-2 my-sm-0 mr-3" type="submit">Search</button>
+            </form>
+
+            <!-- Login Items -->
+            <ul class="navbar-nav justify-content-end" sec:authorize="isAuthenticated()">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white"
+                       href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false"
+                       sec:authentication="principal.user.userName"></a>
+                    <!--User Dropdown menu-->
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/userInfo}">My Page</a>
+                        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                    </div>
+                </li>
+                <sec:authentication property="authenticateduser" />
+            </ul>
+            <ul class="navbar-nav justify-content-end"  sec:authorize="isAnonymous()">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-info btn-sm active mr-2" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success btn-sm active" th:href="@{/addUser}">Sign up</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- Footer Information -->
+    <span th:fragment="footer" class="footer text-center text-muted">STL Playground Finder | 2019</span>
+
+</body>
+</html>
